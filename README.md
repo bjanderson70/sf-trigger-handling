@@ -26,4 +26,8 @@ version 0.9.0
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
+## Quick Start
+
+See the [Wiki](https://github.com/bjanderson70/sf-trigger-handling/wiki/Home---Quick-Start)
+ 
 ## Acknowledgments
