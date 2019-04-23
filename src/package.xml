@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+		<members>accc_IHandlerChain</members>
+		<members>accc_ITriggerHandler</members>
+		<members>accc_TestTriggerHandlerForAccount</members>
+		<members>accc_TestTriggerHandlerForAccountTest</members>
+		<members>accc_TestTriggerHandlerForAccountTwo</members>
+		<members>accc_TestTriggerHandlerForAccountTwoTest</members>
+		<members>accc_TestTriggerHandlerForContact</members>
+		<members>accc_TestTriggerHandlerForContactTest</members>
+		<members>accc_TriggerHandlerBase</members>
+		<members>accc_TriggerHandlerBaseTest</members>
+		<members>accc_TriggerHandlerChainBuilder</members>
+		<members>accc_TriggerHandlerChainBuilderTest</members>
+		<members>accc_TriggerHandlerChainManager</members>
+		<members>accc_TriggerHandlerChainManagerTest</members>
+		<members>accc_TriggerHandlerMetaDataModel</members>
+		<members>accc_TriggerHandlerMetaDataModelTest</members>
+		<members>accc_TriggerHelperClass</members>
+		<members>accc_TriggerHelperClassTest</members>
+		<members>accc_VirtualTriggerHandlerChain</members>
+		<members>accc_VirtualTriggerHandlerChainTest</members>
+        <name>ApexClass</name>
+   </types>
+    
+    <types>
+		<members>accc_Trigger_Handler_MetaData_Model__mdt</members>
+        <name>CustomObject</name>
+    </types>
+   <types>
+		<members>accc_Trigger_Handler_MetaData_Model.th_leave_for_test_account</members>
+		<members>accc_Trigger_Handler_MetaData_Model.th_leave_for_test_contact</members>
+        <name>CustomMetadata</name>
+    </types>
+	<types>
+        <members>AcccEvtCoreTests</members>
+        <name>ApexTestSuite</name>
+    </types>
+	<types>
+        <members>accc_Trigger_Handler_MetaData_Model__mdt-accc Trigger Handler MetaData Model Layout</members>
+        <name>Layout</name>
+    </types>
+	
+
+    <version>43.0</version>
+</Package>
