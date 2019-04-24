@@ -17,8 +17,6 @@
 		<members>accc_TriggerHandlerChainManagerTest</members>
 		<members>accc_TriggerHandlerMetaDataModel</members>
 		<members>accc_TriggerHandlerMetaDataModelTest</members>
-		<members>accc_TriggerHelperClass</members>
-		<members>accc_TriggerHelperClassTest</members>
 		<members>accc_VirtualTriggerHandlerChain</members>
 		<members>accc_VirtualTriggerHandlerChainTest</members>
         <name>ApexClass</name>
