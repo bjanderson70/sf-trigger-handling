@@ -32,6 +32,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
+
 ## Quick Start
 
 See the [Wiki](https://github.com/bjanderson70/sf-trigger-handling/wiki/Home---Quick-Start)
