@@ -35,6 +35,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Quick Start
 
-See the [Wiki](https://github.com/bjanderson70/sf-trigger-handling/wiki/Home---Quick-Start)
+See the [Wiki](https://github.com/bjanderson70/sf-trigger-handling/wiki)
  
 ## Acknowledgments
