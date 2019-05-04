@@ -44,7 +44,7 @@ private class accc_TestTriggerHandlerForContactTest {
 
 	// IF TESTS FAIL HERE ... did you add 'accc_TestTriggerHandlerForContact'
 	// into the custom metadata under 'Test' and made Active
-
+	static String DOMAIN_NAME = 'Contact';
 	//////////////////////////////////////////////////////////////////
 	//
 	// We are ONLY overriding the one method for testing. You override
@@ -58,10 +58,7 @@ private class accc_TestTriggerHandlerForContactTest {
 	@isTest
 	static void testonBeforeInsertChild() {
 		// arrange/assign/act
-		System.Test.startTest();
-		// arrange/assign/act
-		insertNewContactToFireTriggers();
-		System.Test.stopTest();
+		cannotAssumeWeAreWireIntoTriggerHandler(DOMAIN_NAME);
 		// assert
 		system.assertEquals(true, accc_ApexUtilities.containsInTestLog(TEST_OBIC));
 
@@ -71,23 +68,33 @@ private class accc_TestTriggerHandlerForContactTest {
 	 **/
 	@isTest
 	static void testonAfterUpdateChild() {
-		System.Test.startTest();
+		 
 		// arrange/assign/act
-		Contact theContact = insertNewContactToFireTriggers();
-		theContact.Title = 'Miss';
-		update theContact;
-		System.Test.stopTest();
+		cannotAssumeWeAreWireIntoTriggerHandler(DOMAIN_NAME);
 		// assert
 		system.assertEquals(true, accc_ApexUtilities.containsInTestLog(TEST_OAUC));
 
 	}// end of testonAfterUpdateChild
 
+	/**
+	 * @description used to fire the trigger handler. Normally,
+	 * this is fire when the handler function is wired into your trigger framework
+	 * 
+	 * @param domain name
+	 */
+	static void cannotAssumeWeAreWireIntoTriggerHandler(String domain) {
+		accc_TriggerHandlerChainManager mgr = new accc_TriggerHandlerChainManager(accc_ApexEnvironment.getEnvironment());
+		accc_IHandlerChain chain = mgr.createHandlerChainByDomain(domain);
 
-	static Contact insertNewContactToFireTriggers() {
-		Contact newContact = new Contact(LastName = 'testlastname',
-		                                 FirstName = 'theFirstName',
-		                                 Email = 'myname@somecompany.com');
-		insert newContact;
-		return newContact;
+		while (chain != null ) {
+			// invoke the event we want
+			accc_ITriggerHandler handler = chain.getHandler();
+			handler.onBeforeInsertChild(null);
+			handler.onAfterUpdateChild(null,null);
+			 
+			// get next handler in the chain
+			chain = chain.getNext();
+		}
 	}
+	
 } // end of accc_TestTriggerHandlerForContactTest
