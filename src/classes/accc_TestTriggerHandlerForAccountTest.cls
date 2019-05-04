@@ -49,12 +49,28 @@ private class accc_TestTriggerHandlerForAccountTest  {
 	@isTest
 	static void testonBeforeInsertChild() {
 		// arrange/assign/act
-		System.Test.startTest();
-		Account theAccount = new Account(Name = 'test');
-		insert theAccount;
-		System.Test.stopTest();
+		accc_TestTriggerHandlerForAccountTest.cannotAssumeWeAreWireIntoTriggerHandler('Account');
 		// assert
 		system.assertEquals(true, accc_ApexUtilities.containsInTestLog(OBIC_TEST));
 	}
+
+	/**
+	 * @description used to fire the trigger handler. Normally,
+	 * this is fire when the handler function is wired into your trigger framework
+	 * 
+	 * @param domain name
+	 */
+	static void cannotAssumeWeAreWireIntoTriggerHandler(String domain) {
+		accc_TriggerHandlerChainManager mgr = new accc_TriggerHandlerChainManager(accc_ApexEnvironment.getEnvironment());
+		accc_IHandlerChain chain = mgr.createHandlerChainByDomain(domain);
+
+		while (chain != null ) {
+			// invoke the event we want
+			chain.getHandler().onBeforeInsertChild(null);
+			// get next handler in the chain
+			chain = chain.getNext();
+		}
+	}
+	
 
 } // end of accc_TestTriggerHandlerForAccountTest
