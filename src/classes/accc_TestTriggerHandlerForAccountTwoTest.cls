@@ -50,15 +50,29 @@ private class accc_TestTriggerHandlerForAccountTwoTest  {
 	@isTest
 	static void testonBeforeDeleteChild() {
 		// arrange/assign
-		Account theAccount = new Account(Name = 'test');
+		cannotAssumeWeAreWireIntoTriggerHandler('Account');
 		
-		// act
-		System.Test.startTest();
-		insert theAccount;
-		delete theAccount;
-		System.Test.stopTest();
 		// assert
 		system.assertEquals(true, accc_ApexUtilities.containsInTestLog(OBDC_TEST));
 	}
 
+	/**
+	 * @description used to fire the trigger handler. Normally,
+	 * this is fire when the handler function is wired into your trigger framework
+	 * 
+	 * @param domain name
+	 */
+	static void cannotAssumeWeAreWireIntoTriggerHandler(String domain) {
+		accc_TriggerHandlerChainManager mgr = new accc_TriggerHandlerChainManager(accc_ApexEnvironment.getEnvironment());
+		accc_IHandlerChain chain = mgr.createHandlerChainByDomain(domain);
+
+		while (chain != null ) {
+			// invoke the event we want
+			accc_ITriggerHandler handler = chain.getHandler();
+			handler.onBeforeDeleteChild(null);
+
+			// get next handler in the chain
+			chain = chain.getNext();
+		}
+	}
 } // end of accc_TestTriggerHandlerForAccountTwoTest
