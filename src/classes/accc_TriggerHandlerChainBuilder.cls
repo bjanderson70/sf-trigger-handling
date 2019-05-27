@@ -63,7 +63,7 @@ public without sharing class accc_TriggerHandlerChainBuilder {
 	// continue if exception in trigger handler
 	@TestVisible
 	Boolean m_continueIfException = false;
-		// perf metrics trigger handler
+	// perf metrics trigger handler
 	@TestVisible
 	Boolean m_performanceMetrics = false;
 
@@ -261,32 +261,44 @@ public without sharing class accc_TriggerHandlerChainBuilder {
 		}
 
 		Boolean lcontinueIfException = true,
-		       lperformanceMetrics=false;
+		        lperformanceMetrics = false;
+		// define the instance we want to create
+		accc_ITriggerHandler instance;
+
 		// iterate over the elements
+
 		for ( accc_TriggerHandlerMetaDataModel.THDataModelInformation element : elements) {
 			// we work on the domain object that are active
 			if ( element.domain == theDomainName &&
 			        element.isActive ) {
-				// define the instance we want to create
-				accc_ITriggerHandler instance;
+
 				// continue on exception for trigger handlers
 				lcontinueIfException = element.continueIfException;
 				lperformanceMetrics = element.performanceMetrics;
+				// we have to reverse the order of the classes bec/
+				// when we iterate, we start with the first which will be
+				// placed at the end as we traverse the list
+				// Note: 'element.classes' is guaranteed to be non-null!!
+				List<String> toReverseOrder = new List<String>(element.classes);
+				Integer sizeOfList = element.classes.size();
+				String theClass = null;
+
 				// iterate over the classes and create the chain
-				for ( String theClass : element.classes) {
+				for ( integer inx = sizeOfList - 1; inx >= 0; inx--) {
+					// start with the last
+					theClass = toReverseOrder[inx];
 					// attempt to create an instance of the class (must have default ctor)
 					instance = (accc_ITriggerHandler)accc_ApexUtilities.getClassInstance(theClass);
-
-					// first time, we create the first trigger handler ( no next)
-					if ( result == null ) {
+					// was an instance created
+					if ( instance != null ) {
+						// get the next item in the chain
+						accc_IHandlerChain next = result != null ? result : null;
 						result = new accc_VirtualTriggerHandlerChain(instance);
-					} else if ( instance != null ) {
 						// we already have part of the chain, add to it
-						result.setNext(new accc_VirtualTriggerHandlerChain(instance));
+						result.setNext(next);
 					}
-
 				}// end for
-			}
+			} // end if
 		}// end for
 
 		// there SHOULD be ONLY one Domain / Environment but we CANNOT assume this will

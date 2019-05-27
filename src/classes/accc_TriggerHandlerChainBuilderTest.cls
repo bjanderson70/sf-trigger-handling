@@ -128,7 +128,7 @@ private class accc_TriggerHandlerChainBuilderTest {
 	}// end of testfindbyEnvironmentAndDomainIsNull
 
 	@isTest
-	static void testbuildTriggerEventHandlerChain(){
+	static void testbuildTriggerEventHandlerChain() {
 		// assign
 		final String domainName = 'Contact';
 		// act
@@ -140,6 +140,7 @@ private class accc_TriggerHandlerChainBuilderTest {
 		System.assertEquals(true, chain.getHandler() != null);
 		System.assertEquals(true, ctor.continueIfException);
 	}
+
 	@isTest
 	static void testbuild() {
 		// assign --
@@ -153,12 +154,13 @@ private class accc_TriggerHandlerChainBuilderTest {
 
 		// assert
 		System.assertEquals(true, triggerHandlers != null);
+		System.assertEquals(1, ctor.theElements.size());
 		System.assertEquals(true, triggerHandlers.getHandler() != null);
 		System.assertEquals(true, triggerHandlers.getNext().getHandler() != null);
 		System.assertEquals(true, triggerHandlers.getNext() != null);
 		// NOTE: there are 2 accounts handlers; thus, getNext() == 1, getNext().getNext() == 2
 		System.assertEquals(true, triggerHandlers.getNext().getNext() == null);
-		System.assertEquals(true, ctor.theElements.size() >= 1);
+
 		System.assertEquals(true, ctor.continueIfException);
 
 
