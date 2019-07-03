@@ -13,6 +13,8 @@ The basic design works on the premise of a Base class which defines the Before/A
 
 ![HighLevel View](https://github.com/bjanderson70/sf-trigger-handling/blob/master/imgs/th_highlevel.png)
 
+![HighLevel Flow](https://github.com/bjanderson70/sf-trigger-handling/blob/master/imgs/th_flow.png)
+
 ## Getting Started
 
 These instructions will provide you information of the project and running on your local machine for development and as well as the testing purposes. See deployment for notes on how to deploy the project on a live system.
