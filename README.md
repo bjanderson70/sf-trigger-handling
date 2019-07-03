@@ -11,6 +11,8 @@ Thus, when a trigger fires on an event those individual classes will be instanti
 
 The basic design works on the premise of a Base class which defines the Before/After events ( which you inherit from an override as needed), and hidden from the developer is the fact these classes are apart of **Chain of Responsibility** controlled by a **Mediator**.
 
+![HighLevel View](https://github.com/bjanderson70/sf-trigger-handling/blob/master/imgs/th_highlevel.png)
+
 ## Getting Started
 
 These instructions will provide you information of the project and running on your local machine for development and as well as the testing purposes. See deployment for notes on how to deploy the project on a live system.
