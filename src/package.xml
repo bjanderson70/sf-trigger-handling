@@ -29,6 +29,8 @@
 	    <members>accc_TestUtility</members>
 	     <members>accc_ApexApplicationExceptionTest</members>
 	     <members>accc_ApexApplicationException</members>
+	    <members>accc_BaseMdtDataModel</members>
+	     <members>accc_BaseMdtDataModelTest</members>
         <name>ApexClass</name>
    </types>
     
