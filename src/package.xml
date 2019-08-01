@@ -19,6 +19,11 @@
 		<members>accc_TriggerHandlerMetaDataModelTest</members>
 		<members>accc_VirtualTriggerHandlerChain</members>
 		<members>accc_VirtualTriggerHandlerChainTest</members>
+	    	<members>accc_ApexUtilities</members>
+	    	<members>accc_ApexUtilitiesTest</members>
+	    	<members>accc_ApexEnvironment</members>
+	    	<members>accc_ApexConstants</members>
+	      	<members>accc_ApexConstants</members>
         <name>ApexClass</name>
    </types>
     
