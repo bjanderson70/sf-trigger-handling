@@ -1,7 +1,7 @@
 # sf-trigger-handling
 First and foremost, **THIS IS NOT A TRIGGER FRAMEWORK**.
 
-The goal is to provide the ability to instantiate various trigger handlers (i.e., classes) at run time (control order,handle exceptions and provide perf metrics). Before you can load and use the trigger handling you **MUST** install the  [sf-cross-cutting concerns](https://github.com/bjanderson70/sf-cross-cutting-concerns).
+The goal is to provide the ability to instantiate various trigger handlers (i.e., classes) at run time (control order,handle exceptions and provide perf metrics). **Before you can load and use the trigger handling you **MUST** install the  [sf-cross-cutting concerns](https://github.com/bjanderson70/sf-cross-cutting-concerns).**
 
 ## Overview
 
