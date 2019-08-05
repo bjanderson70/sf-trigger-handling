@@ -21,7 +21,8 @@
 		<members>accc_VirtualTriggerHandlerChainTest</members>
 	      	<members>accc_ApexApplicationException</members>
 	    	<members>accc_ApexApplicationExceptionTest</members>
-	   
+	   	<members>accc_TriggerMediator</members>
+	    	<members>accc_TriggerMediatorTest</members>
         <name>ApexClass</name>
    </types>
     
