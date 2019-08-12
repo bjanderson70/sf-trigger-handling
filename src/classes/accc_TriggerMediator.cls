@@ -228,12 +228,11 @@ public virtual without sharing class accc_TriggerMediator {
 		                             );
     }// end of execute
     /**
-	* @brief Trigger Manager
-	* @description Trigger Manager
-	* @return return the trigger manager based on environment (test, debug, ...)
-	*/
-	@TestVisible
-	public accc_TriggerHandlerChainManager theTriggerManager() {
+     * @brief Trigger Manager
+     * @description Trigger Manager
+     * @return return the trigger manager based on environment (test, debug, ...)
+     */
+     public accc_TriggerHandlerChainManager theTriggerManager() {
 		// act as a singleton, getting when needed
 		if ( accc_TriggerMediator.mTriggerManager == null ) {
 			// if we are in test mode, make sure the trigger handler uses Test
@@ -249,15 +248,17 @@ public virtual without sharing class accc_TriggerMediator {
 	* @return return the chain based on the domain; we already have a manager in the right environment
 	*/
 	public accc_IHandlerChain theTriggerChain() {
-		// check cached value
-		accc_IHandlerChain chain = accc_TriggerMediator.mTriggerChain.get(this.triggerType.getName());
-		// if not in cache, get it then add
-		if ( chain == null ) {
-            String typeName = this.triggerType.getName();
-			chain = this.theTriggerManager().createHandlerChainByDomain(typeName);
-			accc_TriggerMediator.mTriggerChain.put(typeName, chain);
-		}
-		return chain;
+	    String typeName = this.triggerType.getName();
+            // check cached value
+            accc_IHandlerChain chain = accc_TriggerMediator.mTriggerChain.get(typeName);
+            // if not in cache, get it then add
+            if ( chain == null ) {
+                chain = this.theTriggerManager().createHandlerChainByDomain(typeName);
+                if ( chain != null ) {
+                    accc_TriggerMediator.mTriggerChain.put(typeName, chain);
+                }
+	    }
+	    return chain;
 	} // end of theTriggerChain
     //==============================================================
     // Protected Methods
@@ -321,15 +322,15 @@ public virtual without sharing class accc_TriggerMediator {
 				// if the trigger handler was valid (of type accc_ITriggerHandler ) continue
 				if ( handler != null ) {
 					// we have a handler, then true, yes, this resets
-                    // the state as the user sets 'continueIfException' to true
+                    			// the state as the user sets 'continueIfException' to true
 					successful = true;
 					// call the handler in the chain, return the exception, if any
 					hasException = this.callHandler(handler, state, existingRecords, performanceMetrics);
-                    // set our state
+                    			// set our state
 					successful= hasException == null;
-                    // do we continue after and exception
+                    			// do we continue after and exception
 					if ( !successful && !continueIfException ) {
-                        return successful;
+                        		    return successful;
 					}
 
 				} else {
@@ -338,7 +339,7 @@ public virtual without sharing class accc_TriggerMediator {
 					// our handler was bad ( probably inherited from the wrong type or
 					// incorrectly entered by name )
 					accc_ApexUtilities.log(excpMsg + chain);
-                    // we DO NOT break at this point (as someone may have put in a bad handler name)
+                    		// we DO NOT break at this point (as someone may have put in a bad handler name)
 				}// end if handler
 				// get the next trigger handler in the chain
 				chain = chain.getNext();
