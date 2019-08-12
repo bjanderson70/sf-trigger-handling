@@ -70,14 +70,12 @@ public virtual with sharing class accc_VirtualTriggerHandlerChain implements acc
 	 * @param nextInChain accc_IHandlerChain
 	 */
 	public virtual void setNext(accc_IHandlerChain nextInChain) {
-		system.debug('++++setNext=' + this.m_chain);
 		this.m_chain = nextInChain;
 	}// end of setNext
 	/**
 	* @description get the next link in the chain
 	*/
 	public virtual accc_IHandlerChain getNext() {
-		system.debug('++++getNext=' + this.m_chain);
 		return this.m_chain;
 	}// en dof getNext
 	/**
