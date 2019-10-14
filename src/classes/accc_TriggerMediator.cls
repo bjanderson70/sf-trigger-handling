@@ -36,17 +36,17 @@
  *
  * Below is an example of how to use this class:
  *
-	    static accc_TriggerMediator triggerMediator = new accc_TriggerMediator(Account.class);
+        static accc_TriggerMediator triggerMediator = new accc_TriggerMediator(Account.class);
         //
         // :
         //
-		// invoke trigger handlers related to the BeforeDelete ( this is just one example)
-		Boolean result = triggerMediator.execute(accc_TriggerHelperClass.TriggerState.BeforeDelete);
+        // invoke trigger handlers related to the BeforeDelete ( this is just one example)
+        Boolean result = triggerMediator.execute(accc_TriggerHelperClass.TriggerState.BeforeDelete);
         // returns true if successful; false if an exception occurs and not handled
         //
 
         // Also, look in the Unit Test - 'accc_TriggerMediatorTest' for more information
-        
+
  * @group Common Layer
  **/
 public virtual without sharing class accc_TriggerMediator {
@@ -54,9 +54,11 @@ public virtual without sharing class accc_TriggerMediator {
     // Data members
     //==============================================================
     @TestVisible
-	private static final String EXCEPTION_ON_BAD_HANDLER_CHAIN = ' had a bad handler in chain - ';
+    private static final String EXCEPTION_ON_BAD_HANDLER_CHAIN = ' had a bad handler in chain - ';
     @TestVisible
-	static final String USED_FOR_EXCEPTION_MSG = 'Testing accc_TriggerMediator';
+    static final String USED_FOR_EXCEPTION_MSG = 'Testing accc_TriggerMediator';
+    @TestVisible
+    static final Boolean IS_UNIT_TESTING = System.Test.isRunningTest();
     /*
      * Current new Records
      */
@@ -67,17 +69,17 @@ public virtual without sharing class accc_TriggerMediator {
      */
     @TestVisible
     private Map<Id, SObject> mExistingRecords=null;
-    
+
     /*
      * Holds the trigger handler mechanism
-	 */
-	@TestVisible
-	static  accc_TriggerHandlerChainManager mTriggerManager = null;
-	/*
-	 * The Trigger Handler Chain
-	 */
-	@TestVisible
-	static Map<String, accc_IHandlerChain> mTriggerChain = new Map<String, accc_IHandlerChain>();
+     */
+    @TestVisible
+    static accc_TriggerHandlerChainManager mTriggerManager = null;
+    /*
+     * The Trigger Handler Chain
+     */
+    @TestVisible
+    static Map<String, accc_IHandlerChain> mTriggerChain = new Map<String, accc_IHandlerChain>();
     /*
      * Used for Testing
      */
@@ -87,66 +89,60 @@ public virtual without sharing class accc_TriggerMediator {
     // Ctors
     //==============================================================
     /**
-    * @description ctor (will determine the environment)
-    * @author Bill Anderson | 8/5/2019
-    * @param Type sobjectType type of sobject
-    */
+     * @description ctor (will determine the environment)
+     * @param Type sobjectType type of sobject
+     */
     public accc_TriggerMediator(Type sobjectType) {
         this(sobjectType,accc_ApexEnvironment.getEnvironment(),Trigger.New, Trigger.OldMap);
     }// end of ctor
      /**
-    * @description ctor (will determine the environment)
-    * @author Bill Anderson | 8/5/2019
-    * @param Type sobjectType type of sobject
-    * Param String the environment (test,debug,production) 
-    */
+      * @description ctor (will determine the environment)
+      * @param Type sobjectType type of sobject
+      * Param String the environment (test,debug,production)
+      */
     public accc_TriggerMediator(Type sobjectType, String environment) {
         this(sobjectType,environment,Trigger.New, Trigger.OldMap);
     }// end of ctor
     /**
-    * @description ctor (will determine the environment)
-    * @author Bill Anderson | 8/5/2019
-    * @param Type sobjectType type of sobject
-    * @param theRecords the new Records
-    */
+     * @description ctor (will determine the environment)
+     * @param Type sobjectType type of sobject
+     * @param theRecords the new Records
+     */
     public accc_TriggerMediator(Type sobjectType, List<SObject> theRecords) {
         this(sobjectType,accc_ApexEnvironment.getEnvironment(),theRecords, Trigger.OldMap);
     }// end of ctor
     /**
-    * @description ctor (will determine the environment)
-    * @author Bill Anderson | 8/5/2019
-    * @param Type sobjectType type of sobject
-    * @param theRecords the existing Records
-    */
+     * @description ctor (will determine the environment)
+     * @param Type sobjectType type of sobject
+     * @param theRecords the existing Records
+     */
     public accc_TriggerMediator(Type sobjectType,Map<Id, SObject> existingRecords) {
         this(sobjectType,accc_ApexEnvironment.getEnvironment(),Trigger.New, existingRecords);
     }// end of ctor
     /**
-    * @description ctor (will determine the environment)
-    * @author Bill Anderson | 8/5/2019
-    * @param Type sobjectType type of sobject
-    * @param theRecords the new Records
-    * params existingRecords the existing Records
-    */
+     * @description ctor (will determine the environment)
+     * @param Type sobjectType type of sobject
+     * @param theRecords the new Records
+     * params existingRecords the existing Records
+     */
     public accc_TriggerMediator(Type sobjectType,
                                 List<Sobject> theRecords,
                                 Map<Id, SObject> existingRecords) {
         this(sobjectType,accc_ApexEnvironment.getEnvironment(),theRecords, existingRecords);
     }// end of ctor
     /**
-    * @description ctor
-    * @author Bill Anderson | 8/5/2019
-    * @param Type sobjectType type of sobject
-    * @param String the environment (test, debug, production)
-    */
-    public accc_TriggerMediator(Type sobjectType, 
-                                String environment, 
-                                List<Sobject> theRecords, 
+     * @description ctor
+     * @param Type sobjectType type of sobject
+     * @param String the environment (test, debug, production)
+     */
+    public accc_TriggerMediator(Type sobjectType,
+                                String environment,
+                                List<Sobject> theRecords,
                                 Map<Id, SObject> existing) {
-        if ( sobjectType == null ){
+        if ( sobjectType == null ) {
             throw new accc_ApexApplicationException('Null Type passed to accc_TriggerMediator');
         }
-        if ( string.isBlank(environment)){
+        if ( string.isBlank(environment)) {
             environment = accc_ApexEnvironment.getEnvironment();
         }
         this.triggerType = sobjectType;
@@ -158,38 +154,38 @@ public virtual without sharing class accc_TriggerMediator {
 
     //==============================================================
     // Properties
-    //============================================================== 
+    //==============================================================
     /*
      * Type of SObject (getter/setter)
      */
     @TestVisible
     public Type triggerType {
-        get ;
+        get;
         protected set;
     }// end of triggerType
-    
+
     /*
      * The environment (test,debug, production)
      * (getter/setter)
      */
     @TestVisible
     public String theEnvironment {
-        get ;
+        get;
         private set;
     }// end of theEnvironment
     /*
      * The new records
      * (getter/setter)
      */
-    public  List<SObject> records {
-        get { 
-            if ( this.mRecords == null){
+    public List<SObject> records {
+        get {
+            if ( this.mRecords == null) {
                 this.mRecords = Trigger.New;
             }
             return this.mRecords;
         }
         protected set {
-             this.mRecords = value;
+            this.mRecords = value;
         }
     }// end of records
 
@@ -198,222 +194,223 @@ public virtual without sharing class accc_TriggerMediator {
      * (getter/setter)
      */
     public Map<Id,SObject> existingRecords {
-        get { 
-            if ( this.mExistingRecords == null){
+        get {
+            if ( this.mExistingRecords == null) {
                 this.mExistingRecords = Trigger.OldMap;
             }
             return this.mExistingRecords;
         }
         protected set {
-             this.mExistingRecords = value;
+            this.mExistingRecords = value;
         }
     }// end of existingRecords
-    //==============================================================
-    // Public Methods
-    //==============================================================
+     //==============================================================
+     // Public Methods
+     //==============================================================
 
     /**
-    * @description invoke the trigger handler (chain)
-    * @author Bill Anderson | 8/5/2019
-    * @param accc_TriggerHelperClass.TriggerState state , Before/After
-    * @return Boolean
-    */
-    public Boolean execute(accc_TriggerHelperClass.TriggerState state){
-        	// invoke trigger handlers
-		return this.triggerHandlerInvocation(this.theTriggerChain(),
-		                              state,
-		                              this.existingRecords,
-		                              this.theTriggerManager().continueIfException,
-		                              this.theTriggerManager().performanceMetrics
-		                             );
-    }// end of execute
-    /**
-     * @brief Trigger Manager
-     * @description Trigger Manager
-     * @return return the trigger manager based on environment (test, debug, ...)
+     * @description invoke the trigger handler (chain)
+     * @param accc_TriggerHelperClass.TriggerState state , Before/After
+     * @return Boolean
      */
-     public accc_TriggerHandlerChainManager theTriggerManager() {
-		// act as a singleton, getting when needed
-		if ( accc_TriggerMediator.mTriggerManager == null ) {
-			// if we are in test mode, make sure the trigger handler uses Test
-			accc_TriggerMediator.mTriggerManager = new accc_TriggerHandlerChainManager(this.theEnvironment);
-		}
+    public Boolean execute(accc_TriggerHelperClass.TriggerState state){
+        // invoke trigger handlers
+        return this.triggerHandlerInvocation(this.theTriggerChain(),
+                                             state,
+                                             this.existingRecords,
+                                             this.theTriggerManager().continueIfException,
+                                             this.theTriggerManager().performanceMetrics
+                                             );
+    }// end of execute
+     /**
+      * @brief Trigger Manager
+      * @description Trigger Manager
+      * @return return the trigger manager based on environment (test, debug, ...)
+      */
+    public accc_TriggerHandlerChainManager theTriggerManager() {
+        // act as a singleton, getting when needed
+        if ( accc_TriggerMediator.mTriggerManager == null ) {
+            // if we are in test mode, make sure the trigger handler uses Test
+            accc_TriggerMediator.mTriggerManager = new accc_TriggerHandlerChainManager(this.theEnvironment);
+        }
 
-		return accc_TriggerMediator.mTriggerManager;
-	} // end of theTriggerManager
+        return accc_TriggerMediator.mTriggerManager;
+    } // end of theTriggerManager
 
-	/**
-	* @brief Trigger Handler 
-	* @description Trigger Handler Chain based on the Domain
-	* @return return the chain based on the domain; we already have a manager in the right environment
-	*/
-	public accc_IHandlerChain theTriggerChain() {
-	    String typeName = this.triggerType.getName();
-            // check cached value
-            accc_IHandlerChain chain = accc_TriggerMediator.mTriggerChain.get(typeName);
-            // if not in cache, get it then add
-            if ( chain == null ) {
-                chain = this.theTriggerManager().createHandlerChainByDomain(typeName);
-                if ( chain != null ) {
-                    accc_TriggerMediator.mTriggerChain.put(typeName, chain);
-                }
-	    }
-	    return chain;
-	} // end of theTriggerChain
+    /**
+     * @brief Trigger Handler
+     * @description Trigger Handler Chain based on the Domain
+     * @return return the chain based on the domain; we already have a manager in the right environment
+     */
+    public accc_IHandlerChain theTriggerChain() {
+        String typeName = this.triggerType.getName();
+        // check cached value
+        accc_IHandlerChain chain = accc_TriggerMediator.mTriggerChain.get(typeName);
+        // if not in cache, get it then add
+        if ( chain == null ) {
+            chain = this.theTriggerManager().createHandlerChainByDomain(typeName);
+            // add to cache
+            if ( chain != null ) {
+                accc_TriggerMediator.mTriggerChain.put(typeName, chain);
+            }
+        }
+        return chain;
+    } // end of theTriggerChain
     //==============================================================
     // Protected Methods
     //==============================================================
     /**
-	 * @description Call the trigger handlers in the chain
-	 * @details Call the trigger handlers in the chain
-	 *
-	 * @param chain the trigger handler chain chain
-	 * @param state which trigger event
-	 * @param existingRecords existing records, if any
-	 * @param continueIfException continue if trigger handler exception
-	 */
-	@TestVisible
-	protected virtual Boolean triggerHandlerInvocation(accc_IHandlerChain chain,
-	        accc_TriggerHelperClass.TriggerState state,
-	        Map<Id, SObject> existingRecords,
-	        Boolean continueIfException,
-	        Boolean performanceMetrics ) {
-                
-		// invoke
-		return this.triggerHandlerInvocation(chain,
-		                                     state,
-		                                     existingRecords,
-		                                     continueIfException,
-		                                     performanceMetrics,
-		                                     EXCEPTION_ON_BAD_HANDLER_CHAIN);
-	} // end of triggerHandlerInvocation
+     * @description Call the trigger handlers in the chain
+     * @details Call the trigger handlers in the chain
+     *
+     * @param chain the trigger handler chain chain
+     * @param state which trigger event
+     * @param existingRecords existing records, if any
+     * @param continueIfException continue if trigger handler exception
+     */
+    @TestVisible
+    protected virtual Boolean triggerHandlerInvocation(accc_IHandlerChain chain,
+                                                       accc_TriggerHelperClass.TriggerState state,
+                                                       Map<Id, SObject> existingRecords,
+                                                       Boolean continueIfException,
+                                                       Boolean performanceMetrics ) {
 
-	/**
-	 * @description Call the trigger handlers based on which event state ( before/after)
-	 * **** NEEDS REFACTORING
-	 *
-	 * @param chain the trigger handler chain chain
-	 * @param state which trigger event
-	 * @param existingRecords existing records, if any
-	 * @param continueIfException continue if trigger handler exception
-	 * @param performanceMetrics getting performance metrics for each handler
-	 * @param exceptionMessage exception message if trigger handler chain not created
-	 */
-	@TestVisible
-	protected virtual Boolean triggerHandlerInvocation(accc_IHandlerChain chain,
-	        accc_TriggerHelperClass.TriggerState state,
-	        Map<Id, SObject> existingRecords,
-	        Boolean continueIfException ,
-	        Boolean performanceMetrics,
-	        String exceptionMessage) {
-                
-		Boolean successful = false;
-		string excpMsg = string.isBlank(exceptionMessage) ? EXCEPTION_ON_BAD_HANDLER_CHAIN : exceptionMessage;
-		Exception hasException = null;
+        // invoke
+        return this.triggerHandlerInvocation(chain,
+                                             state,
+                                             existingRecords,
+                                             continueIfException,
+                                             performanceMetrics,
+                                             EXCEPTION_ON_BAD_HANDLER_CHAIN);
+    } // end of triggerHandlerInvocation
 
-		// is there work to perform ( chain)
-		if ( chain != null ) {
-			accc_ITriggerHandler handler = null;
+    /**
+     * @description Call the trigger handlers based on which event state ( before/after)
+     * **** NEEDS REFACTORING
+     *
+     * @param chain the trigger handler chain chain
+     * @param state which trigger event
+     * @param existingRecords existing records, if any
+     * @param continueIfException continue if trigger handler exception
+     * @param performanceMetrics getting performance metrics for each handler
+     * @param exceptionMessage exception message if trigger handler chain not created
+     */
+    @TestVisible
+    protected virtual Boolean triggerHandlerInvocation(accc_IHandlerChain chain,
+                                                       accc_TriggerHelperClass.TriggerState state,
+                                                       Map<Id, SObject> existingRecords,
+                                                       Boolean continueIfException,
+                                                       Boolean performanceMetrics,
+                                                       String exceptionMessage) {
 
-			// iterate over the chain of trigger handlers
-			while ( chain != null ) {
-				// get our current handler
-				handler = (accc_ITriggerHandler) chain.getHandler();
-				// if the trigger handler was valid (of type accc_ITriggerHandler ) continue
-				if ( handler != null ) {
-					// we have a handler, then true, yes, this resets
-                    			// the state as the user sets 'continueIfException' to true
-					successful = true;
-					// call the handler in the chain, return the exception, if any
-					hasException = this.callHandler(handler, state, existingRecords, performanceMetrics);
-                    			// set our state
-					successful= hasException == null;
-                    			// do we continue after and exception
-					if ( !successful && !continueIfException ) {
-                        		    return successful;
-					}
+        Boolean successful = false;
+        string excpMsg = string.isBlank(exceptionMessage) ? EXCEPTION_ON_BAD_HANDLER_CHAIN : exceptionMessage;
+        Exception hasException = null;
+        accc_ITriggerHandler handler = null;
 
-				} else {
-					// we have no handler
-					successful = false;
-					// our handler was bad ( probably inherited from the wrong type or
-					// incorrectly entered by name )
-					accc_ApexUtilities.log(excpMsg + chain);
-                    		// we DO NOT break at this point (as someone may have put in a bad handler name)
-				}// end if handler
-				// get the next trigger handler in the chain
-				chain = chain.getNext();
+        // iterate over the chain of trigger handlers
+        while ( chain != null ) {
+            // get our current handler
+            handler = (accc_ITriggerHandler) chain.getHandler();
+            // if the trigger handler was valid (of type accc_ITriggerHandler ) continue
+            if ( handler != null ) {
+                // we have a handler, then true, this resets
+                // the state as the user sets 'continueIfException' to true
+                successful = true;
+                // call the handler in the chain, return the exception, if any
+                hasException = this.callHandler(handler, state, existingRecords, performanceMetrics);
+                // set our state
+                successful= hasException == null;
+                // set internal handler's  resource state ( handlers in the following chain can determine state better, if continuing)
+                // as the handler that follows (should we continue) can determine corrective measures
+                handler.handlerResources().add(accc_TriggerHandlerResources.EXCEPTION_KEY,
+                                               new accc_TriggerHandlerResources.PassThruResourceDAO(null,hasException));
+                // do we continue after and exception
+                if ( !successful && !continueIfException ) {
+                    return successful;
+                }
 
-			} // end while
-		} // end of chain
-       return successful;
-	}// end of triggerHandlerInvocation
-	/**
-	 * @description we have a trigger handler; invoke the operation
-	 *
-	 * @param state which trigger event
-	 * @param existingRecords existing records, if any
-	 * @param continueIfException continue if trigger handler exception
-	 * @param performanceMetrics getting performance metrics for each handler
-	 * @return Exception, if any from the handler
-	 */
-	protected virtual Exception callHandler( accc_ITriggerHandler handler,
-	        accc_TriggerHelperClass.TriggerState state,
-	        Map<Id, SObject> existingRecords,
-	        Boolean performanceMetrics) {
+            } else {
+                // we have no handler
+                successful = false;
+                // our handler was bad ( probably inherited from the wrong type or
+                // incorrectly entered by name )
+                accc_ApexUtilities.log(excpMsg + chain);
+                // we DO NOT break at this point (as someone may have put in a bad handler name)
+            }    // end if handler
+            // get the next trigger handler in the chain
+            chain = chain.getNext();
 
-		accc_ApexPerformanceMetrics metrics = performanceMetrics ? new accc_ApexPerformanceMetrics('Start') : null;
-		Exception handlerException = null;
+        }// end while
 
-		// log start of our handler's performance
-		if ( performanceMetrics) {
-			accc_ApexUtilities.log(metrics.toString());
-		}
-		//
-		// Here we check which trigger event to perform; if we get an exception
-		// we check the continue-if-exception flag to determine whether to log and
-		// continue or log and break
-		//
-		try {
+        return successful;
+    }// end of triggerHandlerInvocation
+    /**
+     * @description we have a trigger handler; invoke the operation
+     *
+     * @param state which trigger event
+     * @param existingRecords existing records, if any
+     * @param continueIfException continue if trigger handler exception
+     * @param performanceMetrics getting performance metrics for each handler
+     * @return Exception, if any from the handler
+     */
+    protected virtual Exception callHandler( accc_ITriggerHandler handler,
+                                             accc_TriggerHelperClass.TriggerState state,
+                                             Map<Id, SObject> existingRecords,
+                                             Boolean performanceMetrics) {
 
-			if ( state == accc_TriggerHelperClass.TriggerState.BeforeInsert ) {
-				handler.onBeforeInsertChild(this.records);
-			} else if ( state == accc_TriggerHelperClass.TriggerState.BeforeUpdate ) {
-				handler.onBeforeUpdateChild(this.records, existingRecords);
-			} else if ( state == accc_TriggerHelperClass.TriggerState.BeforeDelete ) {
-				handler.onBeforeDeleteChild(this.records);
-			} else if ( state == accc_TriggerHelperClass.TriggerState.AfterInsert ) {
-				handler.onAfterInsertChild(this.records);
-			} else if ( state == accc_TriggerHelperClass.TriggerState.AfterUpdate ) {
-				handler.onAfterUpdateChild(this.records, existingRecords);
-			} else if ( state == accc_TriggerHelperClass.TriggerState.AfterDelete ) {
-				handler.onAfterDeleteChild(this.records);
-			} else if ( state == accc_TriggerHelperClass.TriggerState.AfterUndelete ) {
-				handler.onAfterUndeleteChild(this.records);
-			}
+        accc_ApexPerformanceMetrics metrics = performanceMetrics ? new accc_ApexPerformanceMetrics('Start') : null;
+        Exception handlerException = null;
 
-			// ***************** use for testing
-			if (System.Test.isRunningTest() ) {
-				if ( accc_TriggerMediator.mCauseException == true ) {
-					throw new accc_ApexApplicationException(USED_FOR_EXCEPTION_MSG);
-				}
-			}
-			// ***************** use for testing
-		} catch (Exception excp) {
-			handlerException = excp;
-			// log exception
-			accc_ApexUtilities.log(excp.getMessage() 
-                                    + ', ' 
-                                    + 'Trigger Handler:' + handler 
-                                    + ', '
-                                    + 'Trigger State:' + state );
-		}
-		// log the end of the handlers' performance
-		if ( performanceMetrics) {
-			metrics.message ='End';
-			accc_ApexUtilities.log(metrics.toString());
-		}
+        // log start of our handler's performance
+        if ( performanceMetrics) {
+            accc_ApexUtilities.log(metrics.toString());
+        }
+        //
+        // Here we check which trigger event to perform; if we get an exception
+        // we check the continue-if-exception flag to determine whether to log and
+        // continue or log and break
+        //
+        try {
+
+            if ( state == accc_TriggerHelperClass.TriggerState.BeforeInsert ) {
+                handler.onBeforeInsertChild(this.records);
+            } else if ( state == accc_TriggerHelperClass.TriggerState.BeforeUpdate ) {
+                handler.onBeforeUpdateChild(this.records, existingRecords);
+            } else if ( state == accc_TriggerHelperClass.TriggerState.BeforeDelete ) {
+                handler.onBeforeDeleteChild(this.records);
+            } else if ( state == accc_TriggerHelperClass.TriggerState.AfterInsert ) {
+                handler.onAfterInsertChild(this.records);
+            } else if ( state == accc_TriggerHelperClass.TriggerState.AfterUpdate ) {
+                handler.onAfterUpdateChild(this.records, existingRecords);
+            } else if ( state == accc_TriggerHelperClass.TriggerState.AfterDelete ) {
+                handler.onAfterDeleteChild(this.records);
+            } else if ( state == accc_TriggerHelperClass.TriggerState.AfterUndelete ) {
+                handler.onAfterUndeleteChild(this.records);
+            }
+
+            // ***************** START use for testing
+            if ( accc_TriggerMediator.mCauseException == true
+                 && IS_UNIT_TESTING ) {
+                throw new accc_ApexApplicationException(USED_FOR_EXCEPTION_MSG);
+            }
+            // ***************** END use for testing
+        } catch (Exception excp) {
+            handlerException = excp;
+            // log exception
+            accc_ApexUtilities.log(excp.getMessage()
+                                   + ', '
+                                   + '\nTrigger Handler:' + handler
+                                   + ', '
+                                   + 'Trigger State:' + state );
+        } finally {
+            // log the end of the handlers' performance
+            if ( performanceMetrics) {
+                metrics.message ='End';
+                accc_ApexUtilities.log(metrics.toString());
+            }
+        }
         return handlerException;
-	} // end of callHandler
+    } // end of callHandler
 
 } // end of accc_TriggerMediatortriggerMediator

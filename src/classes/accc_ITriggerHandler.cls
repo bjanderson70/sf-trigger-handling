@@ -29,13 +29,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Bill anderson 
+ * @author Bill anderson
  * @description Encapsulates all behaviour logic relating to trigger handling in
  * children of the Domains
  *
  * @group Domain Layer
  **/
 public interface accc_ITriggerHandler {
+    /*
+     * Represents the data pass thru to subsequent calls
+     * Pay attention to #5 in this link ( https ://developer.salesforce.com/index.php?title=Apex_Code_Best_Practices&oldid=26951 )
+     */
+    accc_TriggerHandlerResources handlerResources();
 	/**
 	 * @description add an error on the sobject. When used on Trigger.new
 	 * in before insert and before update triggers, and on Trigger.old in

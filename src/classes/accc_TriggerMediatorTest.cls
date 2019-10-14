@@ -35,154 +35,154 @@
  */
 @isTest
 private class accc_TriggerMediatorTest {
-   
-   	static final String ExpectedTHEnvironmentCustomMDT = accc_ApexConstants.TEST_CATEGORY;
+
+    static final String ExpectedTHEnvironmentCustomMDT = accc_ApexConstants.TEST_CATEGORY;
 
     @isTest
-	static void testCtorWithBadType() {
+    static void testCtorWithBadType() {
         // arrange/act
         Boolean hasException = false;
         try {
-		    accc_TriggerMediator ctor = new accc_TriggerMediator((Type)null);
-        } catch (Exception excp){
+            accc_TriggerMediator ctor = new accc_TriggerMediator((Type)null);
+        } catch (Exception excp) {
             hasException = true;
         }
         // assert
-		System.assertEquals(true,hasException);
-	}
-	@isTest
-	static void testCtorWithType() {
-		// arrange/act
-		accc_TriggerMediator ctor = new accc_TriggerMediator(Account.class);
-		// assert
-		System.assertEquals(Account.class, ctor.triggerType);
-		// default is test
-		System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
-        // no records
-		System.assertEquals(null, ctor.records);
-         // no existing records
-		System.assertEquals(null, ctor.existingRecords);
-
-	}
+        System.assertEquals(true,hasException);
+    }
     @isTest
-	static void testCtorWithTypeAndEnv() {
-		// arrange/act
-		accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,ExpectedTHEnvironmentCustomMDT);
-		// assert
-		System.assertEquals(Contact.class, ctor.triggerType);
-		// default is test
-		System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
-        // no records
-		System.assertEquals(null, ctor.records);
-         // no existing records
-		System.assertEquals(null, ctor.existingRecords);
-
-	}
-     @isTest
-	static void testCtorWithTypeAndWithNullEnv() {
-		// arrange/act
-		accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,(String)null);
-		// assert
-		System.assertEquals(Contact.class, ctor.triggerType);
-		// default is test
-		System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
-        // no records
-		System.assertEquals(null, ctor.records);
-         // no existing records
-		System.assertEquals(null, ctor.existingRecords);
-
-	}
-    @isTest
-	static void testCtorWithTypeAndEnvAndRecords() {
-		// arrange/act
-        List<SObject> records = new List<SObject> {
-            new Account(),
-            new Account()
-        };
-		accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,records);
-		// assert
-		System.assertEquals(Contact.class, ctor.triggerType);
-		// default is test
-		System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
-        // no records
-		System.assertEquals(records.size(), ctor.records.size());
-         // no existing records
-		System.assertEquals(null, ctor.existingRecords);
-
-	}
-     @isTest
-	static void testCtorWithTypeAndEnvAndExistingRecords() {
-		// arrange/act
-        Map<Id,SObject> existing = new Map<Id,SObject> {
-             accc_TestUtility.getFakeId(Account.SObjectType) => new Account(),
-             accc_TestUtility.getFakeId(Account.SObjectType) => new Account()
-        };
-		accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,existing);
-		// assert
-		System.assertEquals(Contact.class, ctor.triggerType);
-		// default is test
-		System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
-         //  existing records
-		System.assertEquals(existing.size(), ctor.existingRecords.size());
-         //  existing records
-		System.assertEquals(null, ctor.records);
-
-	}
-      @isTest
-	static void testCtorWithTypeAndEnvAndRecordsAndExisting() {
-		// arrange/act
-        List<SObject> records = new List<SObject> {
-            new Account(),
-            new Account()
-        };
-         Map<Id,SObject> existing = new Map<Id,SObject> {
-             accc_TestUtility.getFakeId(Account.SObjectType) => new Account(),
-             accc_TestUtility.getFakeId(Account.SObjectType) => new Account()
-        };
-		accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,records,existing);
-		// assert
-		System.assertEquals(Contact.class, ctor.triggerType);
-		// default is test
-		System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
-        // no records
-		System.assertEquals(records.size(), ctor.records.size());
-         // no existing records
-		System.assertEquals(existing.size(), ctor.existingRecords.size());
-
-	}
-	@isTest
-	static void testcreateHandlerChainByDomain() {
-		// arrange
-		final String domain = 'Account';
-		final String madeUpDomain = 'MyJunk*';
+    static void testCtorWithType() {
+        // arrange/act
         accc_TriggerMediator ctor = new accc_TriggerMediator(Account.class);
-		accc_TriggerHandlerChainManager thcm = ctor.theTriggerManager();
-		// assert
-		System.assertEquals(true, thcm.createHandlerChainByDomain(domain) != null);
-		// default is true
-		System.assertEquals(true, thcm.continueIfException);
-	}
+        // assert
+        System.assertEquals(Account.class, ctor.triggerType);
+        // default is test
+        System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
+        // no records
+        System.assertEquals(null, ctor.records);
+        // no existing records
+        System.assertEquals(null, ctor.existingRecords);
+
+    }
     @isTest
-	static void testonBeforeInsertChild() {
-		// arrange/assign/act
+    static void testCtorWithTypeAndEnv() {
+        // arrange/act
+        accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,ExpectedTHEnvironmentCustomMDT);
+        // assert
+        System.assertEquals(Contact.class, ctor.triggerType);
+        // default is test
+        System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
+        // no records
+        System.assertEquals(null, ctor.records);
+        // no existing records
+        System.assertEquals(null, ctor.existingRecords);
+
+    }
+    @isTest
+    static void testCtorWithTypeAndWithNullEnv() {
+        // arrange/act
+        accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,(String)null);
+        // assert
+        System.assertEquals(Contact.class, ctor.triggerType);
+        // default is test
+        System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
+        // no records
+        System.assertEquals(null, ctor.records);
+        // no existing records
+        System.assertEquals(null, ctor.existingRecords);
+
+    }
+    @isTest
+    static void testCtorWithTypeAndEnvAndRecords() {
+        // arrange/act
+        List<SObject> records = new List<SObject> {
+            new Account(),
+            new Account()
+        };
+        accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,records);
+        // assert
+        System.assertEquals(Contact.class, ctor.triggerType);
+        // default is test
+        System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
+        // no records
+        System.assertEquals(records.size(), ctor.records.size());
+        // no existing records
+        System.assertEquals(null, ctor.existingRecords);
+
+    }
+    @isTest
+    static void testCtorWithTypeAndEnvAndExistingRecords() {
+        // arrange/act
+        Map<Id,SObject> existing = new Map<Id,SObject> {
+            accc_TestUtility.getFakeId(Account.SObjectType) => new Account(),
+            accc_TestUtility.getFakeId(Account.SObjectType) => new Account()
+        };
+        accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,existing);
+        // assert
+        System.assertEquals(Contact.class, ctor.triggerType);
+        // default is test
+        System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
+        //  existing records
+        System.assertEquals(existing.size(), ctor.existingRecords.size());
+        //  existing records
+        System.assertEquals(null, ctor.records);
+
+    }
+    @isTest
+    static void testCtorWithTypeAndEnvAndRecordsAndExisting() {
+        // arrange/act
+        List<SObject> records = new List<SObject> {
+            new Account(),
+            new Account()
+        };
+        Map<Id,SObject> existing = new Map<Id,SObject> {
+            accc_TestUtility.getFakeId(Account.SObjectType) => new Account(),
+            accc_TestUtility.getFakeId(Account.SObjectType) => new Account()
+        };
+        accc_TriggerMediator ctor = new accc_TriggerMediator(Contact.class,records,existing);
+        // assert
+        System.assertEquals(Contact.class, ctor.triggerType);
+        // default is test
+        System.assertEquals(ExpectedTHEnvironmentCustomMDT, ctor.theEnvironment);
+        // no records
+        System.assertEquals(records.size(), ctor.records.size());
+        // no existing records
+        System.assertEquals(existing.size(), ctor.existingRecords.size());
+
+    }
+    @isTest
+    static void testcreateHandlerChainByDomain() {
+        // arrange
+        final String domain = 'Account';
+        final String madeUpDomain = 'MyJunk*';
+        accc_TriggerMediator ctor = new accc_TriggerMediator(Account.class);
+        accc_TriggerHandlerChainManager thcm = ctor.theTriggerManager();
+        // assert
+        System.assertEquals(true, thcm.createHandlerChainByDomain(domain) != null);
+        // default is true
+        System.assertEquals(true, thcm.continueIfException);
+    }
+    @isTest
+    static void testonBeforeInsertChild() {
+        // arrange/assign/act
         accc_TriggerMediator ctor = new accc_TriggerMediator(Account.class);
         Boolean result = ctor.execute(accc_TriggerHelperClass.TriggerState.BeforeInsert);
-	    // assert
-		system.assertEquals(true, accc_ApexUtilities.containsInTestLog(accc_TestTriggerHandlerForAccount.OBIC));
+        // assert
+        system.assertEquals(true, accc_ApexUtilities.containsInTestLog(accc_TestTriggerHandlerForAccount.OBIC));
         system.assertEquals(true, result);
-	}
-     
+    }
+
     @isTest
-	static void testMediatorCauseException() {
-		// arrange
-        
+    static void testMediatorCauseException() {
+        // arrange
+
         accc_TriggerMediator ctor = new accc_TriggerMediator(Account.class);
         accc_TriggerMediator.mCauseException =true;
         ctor.theTriggerManager().continueIfException = false;
         Boolean result = ctor.execute(accc_TriggerHelperClass.TriggerState.BeforeInsert);
 
-		// assert
-		system.assertEquals(true, accc_ApexUtilities.containsInTestLog(accc_TestTriggerHandlerForAccount.OBIC));
+        // assert
+        system.assertEquals(true, accc_ApexUtilities.containsInTestLog(accc_TestTriggerHandlerForAccount.OBIC));
         system.assertEquals(false, result);
-	}
+    }
 } // end of accc_TriggerMediatorTest

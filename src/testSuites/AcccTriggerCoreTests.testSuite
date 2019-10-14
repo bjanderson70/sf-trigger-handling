@@ -3,12 +3,12 @@
     <testClassName>accc_TestTriggerHandlerForAccountTest</testClassName>
     <testClassName>accc_TestTriggerHandlerForAccountTwoTest</testClassName>
     <testClassName>accc_TestTriggerHandlerForContactTest</testClassName>
-    <testClassName>accc_TestUtility</testClassName>
+    <testClassName>accc_TriggerHandlerBaseTest</testClassName>
     <testClassName>accc_TriggerHandlerChainBuilderTest</testClassName>
     <testClassName>accc_TriggerHandlerChainManagerTest</testClassName>
     <testClassName>accc_TriggerHandlerMetaDataModelTest</testClassName>
+    <testClassName>accc_TriggerHandlerResourcesTest</testClassName>
     <testClassName>accc_TriggerHelperClassTest</testClassName>
-    <testClassName>accc_VirtualCustomSettingsTest</testClassName>
     <testClassName>accc_VirtualTriggerHandlerChainTest</testClassName>
    
 </ApexTestSuite>
