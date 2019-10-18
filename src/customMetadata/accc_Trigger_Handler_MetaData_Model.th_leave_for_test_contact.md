@@ -10,10 +10,6 @@
         <field>Continue_If_Exception__c</field>
         <value xsi:type="xsd:boolean">true</value>
     </values>
-	  <values>
-        <field>Performance_Metrics__c</field>
-        <value xsi:type="xsd:boolean">true</value>
-    </values>
     <values>
         <field>Domain__c</field>
         <value xsi:type="xsd:string">Contact</value>
@@ -21,6 +17,10 @@
     <values>
         <field>Environment__c</field>
         <value xsi:type="xsd:string">Test</value>
+    </values>
+    <values>
+        <field>Performance_Metrics__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>Trigger_Classes__c</field>
