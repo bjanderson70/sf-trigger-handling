@@ -30,7 +30,7 @@ In Salesforce Org, navigate to **Setup->Apex Classes** and run all tests.
 
 ## Versioning
 
-version 0.9.0
+version 1.0.0.0
 
 ## Authors
 
