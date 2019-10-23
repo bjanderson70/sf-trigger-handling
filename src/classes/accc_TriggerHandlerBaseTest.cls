@@ -74,7 +74,7 @@ private class accc_TriggerHandlerBaseTest {
         accc_TriggerHandlerBase ctor = new accc_TriggerHandlerBase();
         ctor.handlerResources().add('test',theData);
         // assert
-        system.assertEquals(MYDATA, (String)ctor.theParameters.get('test').triggerData);
+        system.assertEquals(MYDATA, ((accc_TriggerHandlerResources.PassThruResourceDAO)ctor.theParameters.getData('test')).triggerData);
 
     }// end of testaccc_TriggerHandlerBaseWithParams
 
@@ -86,7 +86,7 @@ private class accc_TriggerHandlerBaseTest {
         accc_TriggerHandlerBase ctor = new accc_TriggerHandlerBase();
         ctor.handlerResources().add('test',theData);
         // act
-        system.assertEquals(MYDATA, (String)ctor.theParameters.get('test').triggerData);
+        system.assertEquals(MYDATA, ((accc_TriggerHandlerResources.PassThruResourceDAO)ctor.theParameters.getData('test')).triggerData);
         ctor.onAfterUndeleteChild(null);
         ctor.onAfterDeleteChild(null);
         ctor.onBeforeDeleteChild(null);
@@ -118,7 +118,7 @@ private class accc_TriggerHandlerBaseTest {
         system.assertEquals(param, ctor.for_testing);
 
     }// end of testaccc_TriggerHandlerBaseMessages
-    
+
 
     //////////////////////////////////////////////////////////////////////////////
     // PRIVATE MEMBERS
