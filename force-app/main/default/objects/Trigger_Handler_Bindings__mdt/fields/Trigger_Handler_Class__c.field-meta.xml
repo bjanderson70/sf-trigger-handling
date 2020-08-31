@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trigger_Handler_Class__c</fullName>
+    <description>Trigger Handler Class</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Trigger Handler Class</inlineHelpText>
+    <label>Trigger Handler Class</label>
+    <required>true</required>
+    <type>TextArea</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Domain__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Domain</label>
+    <referenceTo>EntityDefinition</referenceTo>
+    <relationshipLabel>Trigger_Handler_Bindings</relationshipLabel>
+    <relationshipName>Trigger_Handler_Bindings</relationshipName>
+    <required>true</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

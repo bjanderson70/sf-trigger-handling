@@ -1,0 +1,17 @@
+{
+    "packageDirectories": [
+        {
+            "package": "accc-th",
+            "path": "force-app",
+            "versionName": "Summer '20 Release",
+            "versionNumber": "0.7.0.NEXT",
+            "default": true,
+            "dependencies": [
+            ]
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://test.salesforce.com",
+    "sourceApiVersion": "49.0",
+    "packageAliases": { }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2020-08-30T16:18:14-04:00" hostname="https://asource.my.salesforce.com" tests="14" failures="1"  errors="0"  time="1.19">
+        <properties>
+            <property name="outcome" value="Failed"/>
+            <property name="testsRan" value="14"/>
+            <property name="passing" value="13"/>
+            <property name="failing" value="1"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="93%"/>
+            <property name="failRate" value="7%"/>
+            <property name="testStartTime" value="Aug 30, 2020 4:18 PM"/>
+            <property name="testExecutionTime" value="1.19 s"/>
+            <property name="testTotalTime" value="1.19 s"/>
+            <property name="commandTime" value="59.72 s"/>
+            <property name="hostname" value="https://asource.my.salesforce.com"/>
+            <property name="orgId" value="00D6g000007PItSEAW"/>
+            <property name="username" value="bill.anderson@salesforce.com.asource"/>
+            <property name="testRunId" value="7076g000024WUo0"/>
+            <property name="userId" value="0056g000003uYhAAAU"/>
+            <property name="testRunCoverage" value="59%"/>
+            <property name="orgWideCoverage" value="5%"/>
+        </properties>
+        <testcase name="testCtor" classname="accc_TriggerHandlerMetaDataModelTest" time="0.12">
+        </testcase>
+        <testcase name="testfindAll" classname="accc_TriggerHandlerMetaDataModelTest" time="0.16">
+        </testcase>
+        <testcase name="testfindbyEnvironmentAndDomain" classname="accc_TriggerHandlerMetaDataModelTest" time="0.08">
+        </testcase>
+        <testcase name="testfindbyEnvironmentAndDomainNoDomain" classname="accc_TriggerHandlerMetaDataModelTest" time="0.07">
+        </testcase>
+        <testcase name="testfindbyEnvironmentAndDomainWithNoEnv" classname="accc_TriggerHandlerMetaDataModelTest" time="0.07">
+        </testcase>
+        <testcase name="testfindbyEnvironmentAndLabel" classname="accc_TriggerHandlerMetaDataModelTest" time="0.07">
+        </testcase>
+        <testcase name="testfindbyEnvironmentAndLabelWithNullLabel" classname="accc_TriggerHandlerMetaDataModelTest" time="0.08">
+        </testcase>
+        <testcase name="testfindByLabel" classname="accc_TriggerHandlerMetaDataModelTest" time="0.07">
+        </testcase>
+        <testcase name="testfindByName" classname="accc_TriggerHandlerMetaDataModelTest" time="0.07">
+        </testcase>
+        <testcase name="testfindByNameWithNull" classname="accc_TriggerHandlerMetaDataModelTest" time="0.05">
+        </testcase>
+        <testcase name="testfindbyTestValues" classname="accc_TriggerHandlerMetaDataModelTest" time="0.11">
+            <failure message="System.AssertException: Assertion Failed: Expected: true, Actual: false"><![CDATA[Class.accc_TriggerHandlerMetaDataModelTest.testfindbyTestValues: line 193, column 1]]></failure>
+        </testcase>
+        <testcase name="testfindEnvironment" classname="accc_TriggerHandlerMetaDataModelTest" time="0.08">
+        </testcase>
+        <testcase name="testgetTestInformationByLookup" classname="accc_TriggerHandlerMetaDataModelTest" time="0.1">
+        </testcase>
+        <testcase name="testsetValues" classname="accc_TriggerHandlerMetaDataModelTest" time="0.07">
+        </testcase>
+    </testsuite>
+</testsuites>

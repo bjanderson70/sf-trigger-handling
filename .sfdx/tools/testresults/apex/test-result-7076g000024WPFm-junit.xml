@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2020-08-30T15:14:15-04:00" hostname="https://asource.my.salesforce.com" tests="1" failures="1"  errors="0"  time="0.13">
+        <properties>
+            <property name="outcome" value="Failed"/>
+            <property name="testsRan" value="1"/>
+            <property name="passing" value="0"/>
+            <property name="failing" value="1"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="0%"/>
+            <property name="failRate" value="100%"/>
+            <property name="testStartTime" value="Aug 30, 2020 3:14 PM"/>
+            <property name="testExecutionTime" value="0.13 s"/>
+            <property name="testTotalTime" value="0.13 s"/>
+            <property name="commandTime" value="189.61 s"/>
+            <property name="hostname" value="https://asource.my.salesforce.com"/>
+            <property name="orgId" value="00D6g000007PItSEAW"/>
+            <property name="username" value="bill.anderson@salesforce.com.asource"/>
+            <property name="testRunId" value="7076g000024WPFm"/>
+            <property name="userId" value="0056g000003uYhAAAU"/>
+            <property name="testRunCoverage" value="58%"/>
+            <property name="orgWideCoverage" value="5%"/>
+        </properties>
+        <testcase name="testfindbyTestValues" classname="accc_TriggerHandlerMetaDataModelTest" time="0.13">
+            <failure message="System.AssertException: Assertion Failed: Expected: false, Actual: true"><![CDATA[Class.accc_TriggerHandlerMetaDataModelTest.testfindbyTestValues: line 185, column 1]]></failure>
+        </testcase>
+    </testsuite>
+</testsuites>

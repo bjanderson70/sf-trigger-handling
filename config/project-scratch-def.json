@@ -1,0 +1,17 @@
+{
+    "orgName": "ECMP ScratchOrg",
+    "edition": "Developer",
+    "features": [
+        "AuthorApex",
+        "DebugApex"],
+    "settings": {
+	  "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+          },
+	  "securitySettings": {
+		"sessionSettings":{
+			"sessionTimeout": "TwelveHours"
+		}
+          }
+    }
+}
